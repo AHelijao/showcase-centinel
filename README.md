@@ -1,31 +1,56 @@
 # Centinel — showcase
 
-**Portfolio:** [ahelijao.github.io](https://ahelijao.github.io/) · Chapter II
+**Portfolio:** [ahelijao.github.io](https://ahelijao.github.io/) · Chapter II  
+**Private source:** not linked
 
-> Sanitized public view. Source and document corpora stay private.
+> Docs-only public view. No PDF corpus, no vector DB dumps, no runtime config.
 
-## What it is
+## Elevator
 
-An **offline cyber knowledge base**: RAG over compliance and methodology PDFs (ISO, DORA, GDPR/RGPD, NIST, OWASP, PTES), queried in natural language via a **local LLM** (Ollama). Methodology questions get **phased** answers (prep → execution → evidence).
+**Offline cyber knowledge base** — RAG over compliance & methodology documents, queried in natural language through a **local LLM**. Built for auditors / security engineers who cannot ship docs to a public cloud model.
 
-## Problem
+## Need
 
-Security pros need to interrogate dense frameworks without uploading proprietary or sensitive docs to a cloud LLM — and without dumping unstructured wall-of-text answers.
+| Pain | Response |
+|------|----------|
+| Dense frameworks (ISO, DORA, GDPR/RGPD, NIST, OWASP, PTES) | Ingest PDFs → local vector index |
+| Unstructured LLM answers | **Methodology-driven** replies in execution phases |
+| Cloud leakage risk | Embeddings + LLM **offline** (Ollama-class) |
 
-## What this shows
+## Architecture (sanitized)
 
-- Local embeddings + vector store (offline-first)
-- Separation of *compliance rules* vs *methodology steps* in retrieval
-- Structured responses for auditor / pentester workflows
+```text
+PDF corpus (local)
+       │
+       ▼
+┌──────────────────┐     ┌─────────────────┐
+│  Ingest / chunk  │────▶│  Vector store   │
+│  (PDF pipeline)  │     │  (e.g. Chroma)  │
+└──────────────────┘     └────────┬────────┘
+                                  │ retrieve
+                                  ▼
+                         ┌─────────────────┐
+                         │  Local LLM      │
+                         │  phased answer  │
+                         └─────────────────┘
+```
+
+**Retrieval idea:** tag content as *rules/compliance* vs *steps/methodology*, then bias answers when the question is a “how to”.
+
+## What this demonstrates
+
+- Production-shaped **RAG**, not a toy chat over one file
+- Security posture: **data never leaves the machine** by design
+- UX for practitioners (structured phases, not vibes)
 
 ## Stack
 
-`Python` · `ChromaDB` · `Ollama` · PDF ingest · RAG
+`Python` · `ChromaDB` · LlamaIndex-style orchestration · `Ollama` embeddings/LLM · `pypdf`
 
-## Status
+## Explicitly not in this repo
 
-Personal / research tooling. No corpus, no model weights, no runtime config in this repo.
+Source, `requirements` lock with secrets, indexed storage, private PDFs.
 
 ---
 
-*Helijao Andriamandranto — software & cybersecurity*
+← back to [portfolio](https://ahelijao.github.io/) · Helijao Andriamandranto
