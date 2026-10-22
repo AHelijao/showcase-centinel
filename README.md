@@ -1,4 +1,4 @@
-# Centinel — showcase
+﻿# Centinel — showcase
 
 **Portfolio:** [ahelijao.github.io](https://ahelijao.github.io/) · Chapter II  
 **Private source:** not linked
@@ -50,6 +50,15 @@ PDF corpus (local)
 ## Explicitly not in this repo
 
 Source, `requirements` lock with secrets, indexed storage, private PDFs.
+
+
+## Full source (private)
+
+Access required. The implementation lives in a **private** repository:
+
+- [Centinel](https://github.com/AHelijao/Centinel)
+
+Without collaborator access, GitHub will show **404**. To request access: email [helijao.andriamandranto@gmail.com](mailto:helijao.andriamandranto@gmail.com), message on [LinkedIn](https://linkedin.com/in/helijaoa), or open an issue on **this** showcase repo — I’ll grant access case by case.
 
 ---
 
